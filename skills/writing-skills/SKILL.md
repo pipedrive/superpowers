@@ -71,12 +71,38 @@ API docs, syntax guides, tool documentation (office docs)
 
 ## Directory Structure
 
+A plugin requires these files at its root:
 
 ```
+.claude-plugin/
+  plugin.json           # Plugin descriptor (required)
+  marketplace.json      # Marketplace descriptor (required)
 skills/
   skill-name/
     SKILL.md              # Main reference (required)
     supporting-file.*     # Only if needed
+```
+
+**`plugin.json` minimal template:**
+```json
+{
+  "name": "your-plugin-name",
+  "description": "What this plugin does",
+  "version": "1.0.0",
+  "author": { "name": "Your Name", "email": "you@example.com" }
+}
+```
+
+**`marketplace.json` minimal template:**
+```json
+{
+  "name": "your-plugin-name",
+  "description": "Marketplace description",
+  "owner": { "name": "Your Name" },
+  "plugins": [
+    { "name": "your-plugin-name", "description": "...", "version": "1.0.0", "source": "./" }
+  ]
+}
 ```
 
 **Flat namespace** - all skills in one searchable namespace
@@ -629,6 +655,8 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 - [ ] Supporting files only for tools or heavy reference
 
 **Deployment:**
+- [ ] Verify `.claude-plugin/plugin.json` exists — create from template in Directory Structure if missing
+- [ ] Verify `.claude-plugin/marketplace.json` exists — create from template in Directory Structure if missing
 - [ ] Commit skill to git and push to your fork (if configured)
 - [ ] Consider contributing back via PR (if broadly useful)
 
